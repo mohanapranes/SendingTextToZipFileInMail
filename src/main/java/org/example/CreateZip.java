@@ -27,18 +27,13 @@ public class CreateZip {
             System.out.println(e);
         }
     }
-    boolean isTxt(Path file) {
-        if (file.getFileName().toString().endsWith(".txt")) {
-            System.out.println(file.getFileName().toString());
-        }
-        return file.getFileName().toString().endsWith(".txt");
-    }
+
     public void filesToZip() throws IOException {
-        String pathOfFolder = "/home/i_am_mpw/IdeaProjects/FolderZipMail/folder";
+        String pathOfFolder = "folder";
         String zipName = "txtZip.zip";
         FileOutputStream fos = new FileOutputStream(zipName);
         ZipOutputStream zos = new ZipOutputStream(fos);
-        Files.walk(Paths.get(pathOfFolder)).filter(Files::isRegularFile).filter(this::isTxt).forEach(
+        Files.walk(Paths.get(pathOfFolder)).filter(Files::isRegularFile).filter(file->file.getFileName().toString().endsWith(".txt")).forEach(
                 file-> {
                     try {
                         toZip(file,zos);
@@ -47,7 +42,8 @@ public class CreateZip {
                     }
                 });
         zos.close();
-        Files.walk(Paths.get(pathOfFolder)).forEach(file->{
+        System.out.println();
+        Files.walk(Paths.get(pathOfFolder)).filter(Files::isRegularFile).forEach(file->{
             file.toFile().delete();
         });
         }
