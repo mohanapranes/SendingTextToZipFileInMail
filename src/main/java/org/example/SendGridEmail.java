@@ -44,12 +44,12 @@ public class SendGridEmail {
 
 
     }
-    public static void main(String ...args) throws IOException {
+
+    public static void main(String... args) throws IOException {
 
         final Timer timer = new Timer();
-// Note that timer has been declared final, to allow use in anon. class below
-        timer.schedule( new TimerTask() {
-            public void run(){
+        timer.schedule(new TimerTask() {
+            public void run() {
                 CreateZip createZip = new CreateZip();
                 try {
                     createZip.filesToZip();
@@ -63,6 +63,6 @@ public class SendGridEmail {
                     throw new RuntimeException(e);
                 }
             }
-        },3000);
+        }, 300000, 300000);
     }
 }
